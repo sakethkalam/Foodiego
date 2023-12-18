@@ -4,7 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-
+using Foodiego.Repositories;
+using Foodiego.Interfaces;
+using Foodiego.Mapping;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +28,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<UserProfile>());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
